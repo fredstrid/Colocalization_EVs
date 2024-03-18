@@ -1,0 +1,45 @@
+def designate_groups(pd_patient): 
+    colnames = pd_patient.columns
+    patient = pd_patient.to_numpy()
+    patient=    np.c_[ patient, np.zeros(len(patient)) ]
+    for row in patient:
+        if row[2] != 0 and row[3] != 0 and row[4] != 0 and row[5] != 0:
+            row[6] = 1
+        elif row[2] != 0 and row[3] != 0 and row[4] != 0 and row[5] == 0:
+            row[6] = 2
+        elif row[2] != 0 and row[3] != 0 and row[4] == 0 and row[5] != 0:
+            row[6] = 3
+        elif row[2] != 0 and row[3] == 0 and row[4] != 0 and row[5] != 0:
+            row[6] = 4
+        elif row[2] == 0 and row[3] != 0 and row[4] != 0 and row[5] != 0:
+            row[6] = 5
+        elif row[2] != 0 and row[3] != 0 and row[4] == 0 and row[5] == 0:
+            row[6] = 6
+        elif row[2] != 0 and row[3] == 0 and row[4] != 0 and row[5] == 0:
+            row[6] = 7
+        elif row[2] != 0 and row[3] == 0 and row[4] == 0 and row[5] != 0:
+            row[6] = 8
+        elif row[2] == 0 and row[3] != 0 and row[4] != 0 and row[5] == 0:
+            row[6] = 9
+        elif row[2] == 0 and row[3] != 0 and row[4] == 0 and row[5] != 0:
+            row[6] = 10
+        elif row[2] == 0 and row[3] == 0 and row[4] != 0 and row[5] != 0:
+            row[6] = 11
+        elif row[2] != 0 and row[3] == 0 and row[4] == 0 and row[5] == 0:
+            row[6] = 12
+        elif row[2] == 0 and row[3] != 0 and row[4] == 0 and row[5] == 0:
+            row[6] = 13
+        elif row[2] == 0 and row[3] == 0 and row[4] != 0 and row[5] == 0:
+            row[6] = 14
+        elif row[2] == 0 and row[3] == 0 and row[4] == 0 and row[5] != 0:
+            row[6] = 15
+        elif row[2] == 0 and row[3] == 0 and row[4] == 0 and row[5] == 0:
+            print('ERROR')  
+    patient =  pd.DataFrame(patient, columns=['Center X', 'Center Y',
+           'IntensitySum1_VioBlue__IntensitySumOfChannel_VioBlue___R',
+           'IntensitySum1_FITC__IntensitySumOfChannel_FITC___R',
+           'IntensitySum1_RPe__IntensitySumOfChannel_RPe___R',
+           'IntensitySum1_APC__IntensitySumOfChannel_APC___R',
+           'Group'])         
+    return patient
+
