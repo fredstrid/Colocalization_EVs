@@ -1,7 +1,12 @@
 def designate_groups(pd_patient): 
-    colnames = pd_patient.columns
-    patient = pd_patient.to_numpy()
-    patient=    np.c_[ patient, np.zeros(len(patient)) ]
+    sort_dict = ['Center X','Center Y',
+                 'IntensitySum1_VioBlue__IntensitySumOfChannel_VioBlue___R',
+                 'IntensitySum1_FITC__IntensitySumOfChannel_FITC___R',
+                 'IntensitySum1_RPe__IntensitySumOfChannel_RPe___R',
+                 'IntensitySum1_APC__IntensitySumOfChannel_APC___R']
+    pd_patient_sorted = pd_patient.loc[:, sort_dict]
+    patient = pd_patient_sorted.to_numpy()
+    patient =    np.c_[ patient, np.zeros(len(patient)) ]
     for row in patient:
         if row[2] != 0 and row[3] != 0 and row[4] != 0 and row[5] != 0:
             row[6] = 1
@@ -35,11 +40,10 @@ def designate_groups(pd_patient):
             row[6] = 15
         elif row[2] == 0 and row[3] == 0 and row[4] == 0 and row[5] == 0:
             print('ERROR')  
-    patient =  pd.DataFrame(patient, columns=['Center X', 'Center Y',
+    patient_groups =  pd.DataFrame(patient, columns=['Center X', 'Center Y',
            'IntensitySum1_VioBlue__IntensitySumOfChannel_VioBlue___R',
            'IntensitySum1_FITC__IntensitySumOfChannel_FITC___R',
            'IntensitySum1_RPe__IntensitySumOfChannel_RPe___R',
            'IntensitySum1_APC__IntensitySumOfChannel_APC___R',
            'Group'])         
-    return patient
-
+    return patient_groups
